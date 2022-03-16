@@ -36,27 +36,38 @@ function App() {
     
     return (
         <div>
+            <InputValue label="ระบุวงเงินกู้" value={amount} handleChange={handleAmountChange} />
+            <InputValue label="ระบุอัตราดอกเบี้ย" value={interest} handleChange={handleInterestChange} step="0.1" />
+            <InputValue label="ระบุระยะเวลากู้ (เดือน) " value={period} handleChange={handlePeriodChange}/>
             <div>
-                <label htmlFor="amount">ระบุวงเงินกู้</label>
-                <input type="number" value={amount} onChange={e => handleAmountChange(e)} />
-            </div>
-            <div>
-                <label htmlFor="interest">ระบุอัตราดอกเบี้ย</label>
-                <input type="number" step='any' value={interest} onChange={e => handleInterestChange(e)}  />
-            </div>
-            <div>
-                <label htmlFor="period">ระบุระยะเวลากู้ (เดือน) </label>
-                <input type="number" step='any' value={period} onChange={e => handlePeriodChange(e)}  />
-            </div>
-
-            <div>
-                <div>
-                    <label htmlFor="installment">ค่างวดเดือนละ</label>
-                    <input type="number" step='any' value={installment} />
-                </div>
+                <Installment value={installment} />
             </div>
         </div>
     )
 }
+
+function InputValue(props){
+    return(
+        <div>
+            <label htmlFor="period">{props.label}</label>
+            <input type="number"
+             value={props.value} 
+             onChange={e => props.handleChange(e)}
+             step={props.step != undefined ? props.step : 'any'} />
+        </div>        
+    )
+}
+
+function Installment(props){
+   return (
+        <div>
+            <label htmlFor="installment">ค่างวดเดือนละ</label>
+            <div>{props.value}</div>
+        </div>
+   ) 
+}
+
+
+
 const app = document.getElementById('app')
 ReactDOM.render(<App />, app)
